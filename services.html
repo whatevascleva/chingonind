@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Chingon Industries</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #FF6600;
+    --orange-dark: #CC5200;
+    --bg: #111111;
+    --bg-section: #181818;
+    --bg-card: #1E1E1E;
+    --text: #FFFFFF;
+    --text-muted: #AAAAAA;
+    --border: rgba(255,102,0,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  a {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    color: #FF6600;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a:hover { color: #FFFFFF; }
+
+  /* ─── NAV ─────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+    background: rgba(17,17,17,0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+    text-decoration: none;
+    text-transform: uppercase;
+    z-index: 210;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    z-index: 210;
+  }
+
+  .nav-cart {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+  }
+  .nav-cart:hover { color: var(--orange); }
+
+  .hamburger {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    transition: border-color 0.2s;
+    padding: 0;
+  }
+  .hamburger:hover { border-color: var(--orange); }
+  .hamburger:hover .bar { background: var(--orange); }
+
+  .bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text);
+    transition: transform 0.3s, opacity 0.3s, background 0.2s;
+    transform-origin: center;
+  }
+  .hamburger.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--orange); }
+  .hamburger.open .bar:nth-child(2) { opacity: 0; }
+  .hamburger.open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--orange); }
+
+  .nav-dropdown {
+    position: fixed;
+    inset: 0;
+    z-index: 190;
+    background: rgba(10,10,10,0.97);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .nav-dropdown.open { opacity: 1; pointer-events: all; }
+
+  .nav-dropdown ul {
+    list-style: none;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .nav-dropdown ul li { border-bottom: 1px solid var(--border); }
+  .nav-dropdown ul li a {
+    display: block;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 7vw, 72px);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #FF6600;
+    text-decoration: none;
+    padding: 1rem 4rem;
+    transition: color 0.2s, padding-left 0.25s;
+    line-height: 1.15;
+  }
+  .nav-dropdown ul li a:hover { color: #FFFFFF; padding-left: 5rem; }
+
+  .nav-dropdown-footer {
+    margin-top: 3rem;
+    display: flex;
+    gap: 2rem;
+    font-size: 13px;
+  }
+  .nav-dropdown-footer a { color: #FF6600; font-weight: 500; text-decoration: none; transition: color 0.2s; }
+  .nav-dropdown-footer a:hover { color: #FFFFFF; }
+
+  /* ─── PAGE HERO ───────────────────────────────────────── */
+  .page-hero {
+    padding: 120px 3rem 4rem;
+    text-align: center;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-hero .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--orange);
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    margin-bottom: 1.5rem;
+  }
+  .page-hero .eyebrow::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  .page-hero h1 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: clamp(42px, 7vw, 80px);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .page-hero h1 span { color: var(--orange); }
+
+  .page-hero p {
+    color: var(--text-muted);
+    font-size: 13px;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ─── PRICING SECTION ─────────────────────────────────── */
+  .pricing {
+    padding: 5rem 3rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .pricing-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .pricing-card:hover {
+    border-color: var(--orange);
+    transform: translateY(-4px);
+  }
+
+  .pricing-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85) saturate(0.7);
+  }
+
+  .pricing-card-img-placeholder {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #1a0a00 0%, #3a1500 50%, #1a0a00 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pricing-card-img-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 40%, rgba(255,80,0,0.35) 0%, transparent 70%);
+  }
+
+  .pricing-card-img-placeholder svg {
+    position: relative;
+    z-index: 1;
+    opacity: 0.3;
+    color: var(--orange);
+  }
+
+  .pricing-card-body {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plan-name {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1rem;
+  }
+
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+  }
+
+  .plan-price .amount {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: clamp(42px, 5vw, 58px);
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .plan-price .period {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .plan-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-features {
+    list-style: none;
+    margin-bottom: 2rem;
+    flex: 1;
+  }
+
+  .plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .plan-features li .check {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .plan-features li .check svg {
+    width: 11px;
+    height: 11px;
+    stroke: #111;
+    stroke-width: 2.5;
+    fill: none;
+  }
+
+  .subscribe-btn {
+    display: block;
+    width: 100%;
+    background: var(--orange);
+    color: #111111;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: auto;
+  }
+  .subscribe-btn:hover { background: #e55c00; color: #111111; transform: translateY(-1px); }
+
+  /* ─── FOOTER ──────────────────────────────────────────── */
+  footer {
+    background: #0d0d0d;
+    border-top: 1px solid var(--border);
+    padding: 4rem 3rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+  }
+
+  .footer-brand-logo {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .footer-tagline {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 280px;
+  }
+
+  .footer-col h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.75rem; }
+  .footer-col ul li a {
+    color: #FF6600;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: #FFFFFF; }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-bottom p { color: var(--text-muted); font-size: 13px; }
+  .footer-tagline-right {
+    color: var(--text-muted);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-tagline-right::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  /* ─── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .pricing { padding: 3rem 1.5rem; }
+    footer { padding: 3rem 1.5rem 1.5rem; }
+    .page-hero { padding: 100px 1.5rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FULLSCREEN DROPDOWN MENU -->
+<div class="nav-dropdown" id="navDropdown" role="dialog" aria-label="Site navigation">
+  <ul>
+    <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+    <li><a href="#" onclick="closeMenu()">Services</a></li>
+    <li><a href="#terms" onclick="closeMenu()">Terms &amp; Policies</a></li>
+  </ul>
+  <div class="nav-dropdown-footer">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Cookie Policy</a>
+    <a href="#">Terms of Service</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">CHINGON</a>
+  <div class="nav-right">
+    <button class="nav-cart" aria-label="Cart">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="eyebrow">Subscription Plans</div>
+  <h1>Choose Your <span>Plan</span></h1>
+  <p>Join the digital revolution. Choose your plan and experience the power of next-generation SaaS architecture.</p>
+</section>
+
+<!-- PRICING CARDS -->
+<section class="pricing">
+  <div class="pricing-grid">
+
+    <!-- STARTER -->
+    <div class="pricing-card">
+      <div class="pricing-card-img-placeholder">
+        <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="8" width="48" height="48" rx="4"/><path d="M20 32h24M32 20v24"/></svg>
+      </div>
+      <div class="pricing-card-body">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">
+          <span class="amount">$19.99</span>
+          <span class="period">/month</span>
+        </div>
+        <p class="plan-desc">Essential tools for individuals and small teams to get started with Chingon Industries' services.</p>
+        <ul class="plan-features">
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Up to 5 users, 10GB cloud storage, basic analytics dashboard, email support, 5 projects.
+          </li>
+        </ul>
+        <a href="#" class="subscribe-btn">Subscribe Now</a>
+      </div>
+    </div>
+
+    <!-- PROFESSIONAL -->
+    <div class="pricing-card">
+      <div class="pricing-card-img-placeholder">
+        <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="32,8 56,20 56,44 32,56 8,44 8,20"/><circle cx="32" cy="32" r="10"/></svg>
+      </div>
+      <div class="pricing-card-body">
+        <div class="plan-name">Professional</div>
+        <div class="plan-price">
+          <span class="amount">$49.99</span>
+          <span class="period">/month</span>
+        </div>
+        <p class="plan-desc">Advanced features and increased capacity for growing businesses looking to scale their operations.</p>
+        <ul class="plan-features">
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Up to 25 users, 100GB cloud storage, advanced analytics &amp; reporting, priority chat support, unlimited projects, API access.
+          </li>
+        </ul>
+        <a href="#" class="subscribe-btn">Subscribe Now</a>
+      </div>
+    </div>
+
+    <!-- ENTERPRISE -->
+    <div class="pricing-card">
+      <div class="pricing-card-img-placeholder">
+        <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M32 8 L56 20 L56 44 L32 56 L8 44 L8 20 Z"/><path d="M20 20 L44 20 L44 44 L20 44 Z"/><line x1="32" y1="8" x2="32" y2="20"/><line x1="32" y1="44" x2="32" y2="56"/><line x1="8" y1="32" x2="20" y2="32"/><line x1="44" y1="32" x2="56" y2="32"/></svg>
+      </div>
+      <div class="pricing-card-body">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">
+          <span class="amount">$199.99</span>
+          <span class="period">/month</span>
+        </div>
+        <p class="plan-desc">Comprehensive solutions with dedicated support and custom integrations for large organizations.</p>
+        <ul class="plan-features">
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Unlimited users, unlimited cloud storage, custom analytics &amp; dashboards, 24/7 dedicated support, SSO, custom integrations, dedicated account manager.
+          </li>
+        </ul>
+        <a href="#" class="subscribe-btn">Subscribe Now</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="terms">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-brand-logo">CHINGON</a>
+      <p class="footer-tagline">Forging the future of enterprise SaaS solutions with cutting-edge technology and unmatched performance.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#terms">Terms &amp; Policies</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Chingon Industries. All rights reserved.</p>
+    <div class="footer-tagline-right">Powered by Innovation</div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('navDropdown');
+    const isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+
+  function closeMenu() {
+    document.getElementById('navDropdown').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+</script>
+
+</body>
+</html>
